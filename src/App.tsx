@@ -1,23 +1,22 @@
-import { Box, Button, ThemeProvider, Typography } from '@mui/material'
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/HomePage'
+import { ThemeProvider } from '@emotion/react'
 import { theme } from './theme'
-import { useState } from 'react'
-import { SizedBox } from './components/SizedBox'
 
-export default function App() {
-  const [counter, setCounter] = useState(0)
+const EditPage = lazy(() => import('./pages/EditPage'))
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Box>
-        <Typography variant="body1">Current: {counter}</Typography>
-        <SizedBox height={2} />
-        <Button
-          variant="contained"
-          onClick={() => setCounter(current => current + 1)}
-        >
-          Count Me!
-        </Button>
-      </Box>
-    </ThemeProvider>
-  )
-}
+const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/edit" element={<EditPage />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  </ThemeProvider>
+)
+
+export default App

@@ -12,7 +12,7 @@ export const theme: Theme = createTheme({
     },
     secondary: {
       main: '#0945EB',
-      light: '#6971FF',
+      light: '#6971FF29',
       dark: '#001EB7',
       contrastText: white,
     },
@@ -36,8 +36,8 @@ export const theme: Theme = createTheme({
     },
     success: {
       main: '#4CAF50',
-      light: '#81C784',
-      dark: '#388E3C',
+      light: '#33CCAA33',
+      dark: '#008060',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
     grey: {
@@ -75,6 +75,50 @@ export const theme: Theme = createTheme({
       selected: 'rgba(0, 0, 0, 0.14)',
       disabled: 'rgba(0, 0, 0, 0.26)',
       disabledBackground: 'rgba(0, 0, 0, 0.12)',
+    },
+  },
+  typography: {
+    h6: {
+      fontWeight: 'bold',
+    },
+    subtitle1: {
+      fontSize: '0.75rem',
+    },
+    subtitle2: {
+      fontSize: '0.75rem',
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: '28px',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: '28px',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '28px',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: '12px',
+        },
+      },
     },
   },
 })
