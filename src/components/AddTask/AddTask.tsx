@@ -1,5 +1,6 @@
+import React, { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile' // Correct file icon
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 
 import { Button, Card, TextField, Typography, Box } from '@mui/material'
 import { TaskStatus, useTaskStore } from '../../reducers/taskReducers'
@@ -7,18 +8,33 @@ import { TaskStatus, useTaskStore } from '../../reducers/taskReducers'
 const Add: React.FC = () => {
   const { title, description, tasks, setTitle, setDescription, addTask } =
     useTaskStore()
+  const [error, setError] = useState({ title: false, description: false })
 
   const handleAddTask = () => {
-    if (title.trim() && description.trim()) {
-      const newTaskId =
-        tasks.length > 0 ? Math.max(...tasks.map(task => task.id)) + 1 : 0
-      addTask({
-        id: newTaskId,
-        title,
-        description,
-        history: [{ status: TaskStatus.Todo, timestamp: new Date() }],
+    setError({ title: false, description: false })
+
+    const isTitleValid = title.trim().length > 0
+    const isDescriptionValid = description.trim().length > 0
+
+    if (!isTitleValid || !isDescriptionValid) {
+      setError({
+        title: !isTitleValid,
+        description: !isDescriptionValid,
       })
+      return
     }
+
+    const newTaskId =
+      tasks.length > 0 ? Math.max(...tasks.map(task => task.id)) + 1 : 0
+    addTask({
+      id: newTaskId,
+      title,
+      description,
+      history: [{ status: TaskStatus.Todo, timestamp: new Date() }],
+    })
+
+    setTitle('')
+    setDescription('')
   }
 
   return (
@@ -27,7 +43,6 @@ const Add: React.FC = () => {
         padding: 3,
         borderRadius: 2,
         boxShadow: 3,
-        backgroundColor: 'background.paper',
       }}
     >
       <Box
@@ -51,6 +66,8 @@ const Add: React.FC = () => {
         margin="normal"
         value={title}
         onChange={e => setTitle(e.target.value)}
+        error={error.title}
+        helperText={error.title ? 'Title is required' : ''}
         sx={{
           '& .MuiInputLabel-root': {
             color: 'text.secondary',
@@ -75,6 +92,8 @@ const Add: React.FC = () => {
         rows={4}
         value={description}
         onChange={e => setDescription(e.target.value)}
+        error={error.description}
+        helperText={error.description ? 'Description is required' : ''}
         sx={{
           '& .MuiInputLabel-root': {
             color: 'text.secondary',

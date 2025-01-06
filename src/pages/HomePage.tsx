@@ -10,10 +10,10 @@ const Home = () => {
     <Box
       sx={{
         padding: 4,
-        maxWidth: 800,
         margin: 'auto',
         display: 'flex',
         flexDirection: 'column',
+        maxWidth: 800,
         gap: 3,
       }}
     >
