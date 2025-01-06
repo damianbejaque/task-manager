@@ -5,6 +5,7 @@ import { ThemeProvider } from '@emotion/react'
 import { theme } from './theme'
 
 const EditPage = lazy(() => import('./pages/EditPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
@@ -13,6 +14,7 @@ const App: React.FC = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/edit" element={<EditPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </Router>

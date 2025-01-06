@@ -1,8 +1,8 @@
 // src/App.tsx
 
 import { Box } from '@mui/material'
-import ListOfTask from '../components/Tasks/ListOfTasks'
-import Add from '../components/Add/Add'
+import ListOfTask from '../components/Tasks/TaskList'
+import AddTask from '../components/AddTask/AddTask'
 import Breadcrumb from '../components/Shared/Breadcrumb'
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
       }}
     >
       <Breadcrumb home="Task Management" current="Home" />
-      <Add />
+      <AddTask />
       <ListOfTask />
     </Box>
   )

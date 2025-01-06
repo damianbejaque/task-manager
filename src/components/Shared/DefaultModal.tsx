@@ -15,6 +15,7 @@ interface DefaultModalProps {
   dialog?: string
   onConfirm?: () => void
   children?: React.ReactNode
+  sx?: React.CSSProperties
 }
 
 const DefaultModal = ({
@@ -25,9 +26,10 @@ const DefaultModal = ({
   children,
   onClose,
   onConfirm,
+  sx,
 }: DefaultModalProps) => {
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose} PaperProps={{ sx: sx }}>
       {children ? (
         <DialogContent>{children}</DialogContent>
       ) : (
