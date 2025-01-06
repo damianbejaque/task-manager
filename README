@@ -1,14 +1,14 @@
-#Task Manager
+# Task Manager
 A simple and efficient Task Manager application to help users create, update, and manage tasks with ease. This project is designed for developers and end-users who value productivity and simplicity.
 
-#Features
+## Features
 Add, edit, and delete tasks
 Task categorization and prioritization
 User-friendly interface
 Backend API integration for persistent data storage
 Responsive design for seamless experience across devices
 
-#Installation
+## Installation
 Clone the repository:
 ```
 git clone https://github.com/damianbejaque/task-manager.git
@@ -18,12 +18,12 @@ Install dependencies:
 ```
 npm install
 ```
-#Scripts
+## Scripts
 Run the application
 ```
 npm run develop
-```
-License
+
+### License
 This project is licensed under the MIT License.
 
 ### Additional Info
