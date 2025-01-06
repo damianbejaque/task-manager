@@ -20,7 +20,7 @@ const ListOfTask = () => {
     id: number,
   ) => {
     setMenuAnchor(event.currentTarget)
-    setSelectedTask(id) // Use Zustand's state for selectedTask
+    setSelectedTask(id)
   }
 
   const handleMenuClose = () => {
@@ -39,17 +39,17 @@ const ListOfTask = () => {
 
   const handleIsHistoryDialogClose = () => {
     setIsHistoryDialogOpen(false)
-    setSelectedTask(null) // Clear Zustand's selectedTask
+    setSelectedTask(null)
   }
 
   const handleIsDeleteDialogClose = () => {
     setIsDeleteDialogOpen(false)
-    setSelectedTask(null) // Clear Zustand's selectedTask
+    setSelectedTask(null)
   }
 
   const handleDeleteTask = () => {
     if (selectedTask !== null) {
-      deleteTask(selectedTask) // Use Zustand to delete the task
+      deleteTask(selectedTask)
     }
     handleIsDeleteDialogClose()
   }
