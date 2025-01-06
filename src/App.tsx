@@ -8,7 +8,7 @@ const EditPage = lazy(() => import('./pages/EditPage'))
 
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
-    <Router>
+    <Router basename="/task-manager">
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
