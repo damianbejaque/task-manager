@@ -10,25 +10,25 @@ import {
 } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
-import { format } from 'date-fns' // Import the date-fns library
 import { TaskInterface } from '../../reducers/taskReducers'
+import { formattedDate } from '../utils/date'
 
 interface TaskProps {
   task: TaskInterface
   onMenuOpen: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
 }
 
-const Task: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
+const TaskItem: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
   const theme = useTheme()
   const status = task.history.slice(-1)[0].status
 
-  const formattedDate = format(
-    new Date(task.history.slice(-1)[0].timestamp),
-    'MMM dd, yyyy - hh:mm a',
-  )
+  const date = formattedDate(task.history.slice(-1)[0].timestamp)
 
   return (
-    <Card key={task.id} sx={{ marginBottom: 2 }}>
+    <Card
+      key={task.id}
+      sx={{ marginBottom: 2, borderBottom: '1px solid #000' }}
+    >
       <CardContent
         sx={{
           display: 'flex',
@@ -67,7 +67,7 @@ const Task: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
                 textOverflow: 'ellipsis',
               }}
             >
-              Created: {formattedDate}
+              Created: {date}
             </Typography>
           </Box>
 
@@ -113,4 +113,4 @@ const Task: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
   )
 })
 
-export default Task
+export default TaskItem

@@ -1,12 +1,16 @@
-import { Box, Card, Typography, Menu, MenuItem } from '@mui/material'
+import { Box, Card, Typography, Menu, MenuItem, useTheme } from '@mui/material'
 import { useState } from 'react'
-import Task from './Task'
-import DefaultModal from '../Modal/DefaultModal'
+import Task from './TaskItem'
+import DefaultModal from '../Shared/DefaultModal'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { useNavigate } from 'react-router-dom'
 import { useTaskStore } from '../../reducers/taskReducers'
+import { formattedDate } from '../utils/date'
 
-const ListOfTask = () => {
+const TaskList = () => {
   const navigate = useNavigate()
+  const theme = useTheme()
+
   const { tasks, selectedTask, setSelectedTask, deleteTask } = useTaskStore()
 
   // Dialog States
@@ -87,16 +91,42 @@ const ListOfTask = () => {
       <DefaultModal
         isOpen={isHistoryDialogOpen}
         onClose={handleIsHistoryDialogClose}
+        sx={{ borderRadius: '28px', minWidth: '800px' }}
       >
+        <Typography variant="h6" sx={{ marginBottom: '8px' }}>
+          Task History
+        </Typography>
+
         {selectedTask !== null &&
           tasks
             .find(task => task.id === selectedTask)
             ?.history.map(entry => (
               <Box key={entry.timestamp.toString()} sx={{ marginBottom: 2 }}>
-                <Typography>The task was marked as "{entry.status}"</Typography>
-                <Typography variant="caption">
-                  {entry.timestamp.toString()}
+                <Typography variant="h6">
+                  The task was marked as "{entry.status}"
                 </Typography>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    color: theme.palette.text.secondary,
+                  }}
+                >
+                  <AccessTimeIcon fontSize="small" />
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    Created: {formattedDate(entry.timestamp)}
+                  </Typography>
+                </Box>
               </Box>
             ))}
       </DefaultModal>
@@ -115,4 +145,4 @@ const ListOfTask = () => {
   )
 }
 
-export default ListOfTask
+export default TaskList
