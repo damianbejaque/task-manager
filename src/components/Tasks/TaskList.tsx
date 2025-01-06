@@ -1,4 +1,13 @@
-import { Box, Card, Typography, Menu, MenuItem, useTheme } from '@mui/material'
+import {
+  Box,
+  Card,
+  Typography,
+  Menu,
+  MenuItem,
+  useTheme,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
 import { useState } from 'react'
 import Task from './TaskItem'
 import DefaultModal from '../Shared/DefaultModal'
@@ -6,6 +15,9 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { useNavigate } from 'react-router-dom'
 import { useTaskStore } from '../../reducers/taskReducers'
 import { formattedDate } from '../utils/date'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const TaskList = () => {
   const navigate = useNavigate()
@@ -13,7 +25,6 @@ const TaskList = () => {
 
   const { tasks, selectedTask, setSelectedTask, deleteTask } = useTaskStore()
 
-  // Dialog States
   const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
@@ -83,15 +94,42 @@ const TaskList = () => {
         open={Boolean(menuAnchor)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleOpenHistory}>Task History</MenuItem>
-        <MenuItem onClick={() => navigate('/edit')}>Edit Task</MenuItem>
-        <MenuItem onClick={handleOpenDelete}>Delete Task</MenuItem>
+        <MenuItem onClick={handleOpenHistory}>
+          <ListItemIcon>
+            <CalendarMonthIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Task History" />
+        </MenuItem>
+
+        <MenuItem onClick={() => navigate('/edit')}>
+          <ListItemIcon>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Edit Task" />
+        </MenuItem>
+
+        <MenuItem onClick={handleOpenDelete}>
+          <ListItemIcon>
+            <DeleteIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText
+            sx={{
+              color: 'error.main',
+            }}
+            primary="Delete Task"
+          />
+        </MenuItem>
       </Menu>
 
       <DefaultModal
         isOpen={isHistoryDialogOpen}
         onClose={handleIsHistoryDialogClose}
-        sx={{ borderRadius: '28px', minWidth: '800px' }}
+        sx={{
+          borderRadius: '28px',
+          [theme.breakpoints.up('sm')]: {
+            minWidth: '700px',
+          },
+        }}
       >
         <Typography variant="h6" sx={{ marginBottom: '8px' }}>
           Task History
@@ -101,7 +139,14 @@ const TaskList = () => {
           tasks
             .find(task => task.id === selectedTask)
             ?.history.map(entry => (
-              <Box key={entry.timestamp.toString()} sx={{ marginBottom: 2 }}>
+              <Box
+                key={entry.timestamp.toString()}
+                sx={{
+                  marginBottom: 2,
+                  borderBottom: '1px solid #e0e0e0',
+                  paddingBottom: 2,
+                }}
+              >
                 <Typography variant="h6">
                   The task was marked as "{entry.status}"
                 </Typography>

@@ -20,30 +20,27 @@ interface TaskProps {
 
 const TaskItem: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
   const theme = useTheme()
-  const status = task.history.slice(-1)[0].status
 
+  const status = task.history.slice(-1)[0].status
   const date = formattedDate(task.history.slice(-1)[0].timestamp)
 
   return (
-    <Card
-      key={task.id}
-      sx={{ marginBottom: 2, borderBottom: '1px solid #000' }}
-    >
+    <Card key={task.id} sx={{ marginBottom: 2 }}>
       <CardContent
         sx={{
           display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          gap: 1,
         }}
       >
-        <Box sx={{ maxWidth: '80%' }}>
+        <Box sx={{ width: '100%', maxWidth: { xs: '100%', sm: '80%' } }}>
           <Typography
-            variant="h6"
             noWrap
             sx={{
               color: theme.palette.text.primary,
               fontWeight: 'bold',
-              fontSize: '1rem',
             }}
           >
             {task.title}
@@ -55,6 +52,7 @@ const TaskItem: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
               alignItems: 'center',
               gap: 0.5,
               color: theme.palette.text.secondary,
+              mt: { xs: 1, sm: 0 },
             }}
           >
             <AccessTimeIcon fontSize="small" />
@@ -78,13 +76,22 @@ const TaskItem: React.FC<TaskProps> = React.memo(({ task, onMenuOpen }) => {
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              mt: 0.5,
             }}
           >
             {task.description}
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+
+            gap: 2,
+          }}
+        >
           <Chip
             label={status.toUpperCase()}
             sx={{
